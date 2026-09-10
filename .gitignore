@@ -223,4 +223,9 @@ __marimo__/
 
 # Quartus build artifacts 
 build/
+incremental_db/
+db/
+c5_pin_model_dump.txt
+*.qpf
+*.qsf
 

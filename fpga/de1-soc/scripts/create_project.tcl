@@ -21,12 +21,29 @@ set revision_name "avalon-mm-led-demo"
 set top_level     "led_ctrl_hw_top"
 set device        "5CSEMA5F31C6"
 
-# Put generated Quartus project files under fpga/
+
+# --------------------------------------------------------------------
+# Open existing project or create a new one
+# --------------------------------------------------------------------
+
 cd $fpga_dir
 
-project_new $project_name \
-    -revision $revision_name \
-    -overwrite
+set qpf_file "$fpga_dir/$project_name.qpf"
+
+if {[file exists $qpf_file]} {
+    puts "Opening existing Quartus project: $qpf_file"
+
+    project_open \
+        -revision $revision_name \
+        $project_name
+} else {
+    puts "Creating new Quartus project: $qpf_file"
+
+    project_new \
+        $project_name \
+        -revision $revision_name
+}
+
 
 set_global_assignment -name DEVICE $device
 set_global_assignment -name TOP_LEVEL_ENTITY $top_level
@@ -68,19 +85,6 @@ set_location_assignment PIN_W20 -to led_o[7]
 set_location_assignment PIN_W21 -to led_o[8]
 set_location_assignment PIN_Y21 -to led_o[9]
 
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[0]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[1]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[2]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[3]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[4]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[5]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[6]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[7]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[8]
-#set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to led_o[9]
-
-# LED current and drive strength
-#set_instance_assignment -name CURRENT_STRENGTH_NEW "DEFAULT" -to led_o[0]
 
 for {set i 0} {$i < 10} {incr i} {
     set_instance_assignment -name CURRENT_STRENGTH_NEW 16MA -to "led_o\[$i\]"

@@ -16,14 +16,14 @@ module avalon_mm_led_ctrl #(
     parameter int DataWidth = 32  // Data width in bits
 ) (
 
-    input logic clk_i,
-    input logic rst_i,
+    input wire logic clk_i,
+    input wire logic rst_i,
 
     // Avalon-MM interface signals
-    input logic [AddressWidth-1:0] csr_address,
-    input logic csr_write,
-    input logic [DataWidth-1:0] csr_writedata,
-    input logic csr_read,
+    input wire logic [AddressWidth-1:0] csr_address,
+    input wire logic csr_write,
+    input wire logic [DataWidth-1:0] csr_writedata,
+    input wire logic csr_read,
     output logic [DataWidth-1:0] csr_readdata,
     output logic csr_waitrequest,
     output logic csr_readdatavalid,
@@ -33,8 +33,8 @@ module avalon_mm_led_ctrl #(
 );
 
   typedef enum logic [AddressWidth-1:0] {
-    ADDR_LED_CTRL  = 2'd0,
-    ADDR_DEVICE_ID = 2'd1
+    ADDR_LED_CTRL  = AddressWidth'(0),
+    ADDR_DEVICE_ID = AddressWidth'(1)
   } led_ctrl_regs_e;
 
   // Control/Status Registers
@@ -45,7 +45,6 @@ module avalon_mm_led_ctrl #(
   //
   logic [9:0] led_ctrl_q;
   localparam logic [DataWidth-1:0] DEVICE_ID = DataWidth'(32'h1234_5678);
-
   // LED peripheral does not need to stall
   assign csr_waitrequest = 1'b0;
 

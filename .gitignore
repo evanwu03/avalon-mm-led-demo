@@ -226,6 +226,38 @@ build/
 incremental_db/
 db/
 c5_pin_model_dump.txt
-*.qpf
-*.qsf
+unsaved/
+
+# Quartus workspace / reports
+*.qws
+*.rpt
+*.summary
+*.smsg
+
+# Programming/compiler output
+*.sof
+*.pof
+*.jdi
+
+
+# backup files 
+*.bak
+
+# Xcelium build artifacts 
+xcelium.d/
+xrun.log
+xrun.history
+xrun.key
+waves.shm/
+.simvision/
+.uvmtclcomm.txt
+*.diag
+
+
+
+
+
+
+
+
 
